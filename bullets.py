@@ -9,35 +9,61 @@ print(f.renderText('Bullets'))
 
 # https://pypi.org/project/simple-term-menu/
 
+def find_db():
+    if os.path.isfile("C:\\Users\\Jason\\Documents\\bullets\\database.csv"):
+        print("database.csv exists")
+    else:
+        print('database.csv DOES NOT exist. Need to create, one second')
+        file = open("database.csv", "x")
+        file.close()
 
-if os.path.isfile("C:\\Users\\Jason\\Documents\\bullets\\database.csv"):
-    print("database.csv exists")
-else:
-    print('database.csv DOES NOT exist. Need to create, one second')
-    file = open("database.csv", "x")
-    file.close()
+def get_bullet():
+    # PS command to create a file: New-Item -ItemType file database.csv
+    tsf = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    bullet = input("What did you accomplish? ")
+    print(f"You entered: {bullet.strip()} at {tsf}")
+    row = [tsf,bullet.strip()]
+    with open("database.csv", "a", newline='\n') as file:
+        writer = csv.writer(file)
+        writer.writerow(row)
+        file.close()
 
-print("""
-Select and option:
-1. Add a weekly accomplishment
-2. Print the database
-3. Something else
-""")
+def prn_db():
+    print("Here are the current contents of your database...")
+    print("\r")
+    with open("database.csv", 'r') as fileRead:
+        csvFile = csv.reader(fileRead)
+        for lines in csvFile:
+            print(lines)
+    print("\r")
 
-selection = input()
-print(f"You selected {selection}")
+running = True
+find_db()
+while running == True:
+    print("Select and option by entering the number of what you want to do:")
+    op_1 = "Add a weekly accomplishment."
+    print(f"1. {op_1}")
+    op_2 = "Print the entire database."
+    print(f"2. {op_2}")
+    op_3 = "Exit this script."
+    print(f"3. {op_3}")
+    print("\r")
 
-# PS command to create a file: New-Item -ItemType file database.csv
-tsf = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-bullet = input("What did you accomplish? ")
-print(f"You entered: {bullet} at {tsf}")
-row = [tsf,bullet]
-with open("database.csv", "a", newline='\n') as file:
-    writer = csv.writer(file)
-    writer.writerow(row)
-    file.close()
+    selection = input()
+    if selection == "1":
+        print(f"You selected {selection}. {op_1}")
+        print("\r")
+        get_bullet()
+    elif selection == "2":
+        print(f"You selected {selection}. {op_2}")
+        print ("\r")
+        prn_db()
+    elif selection == "3":
+        print(f"You selected {selection}. {op_3}")
+        print("\r")
+        running = False
+    else:
+        print("Looks like you entered a number that isn't one of the options. BYE BYE!")
+        print("\r")
 
-with open("database.csv", 'r') as fileRead:
-    csvFile = csv.reader(fileRead)
-    for lines in csvFile:
-        print(lines)
+
