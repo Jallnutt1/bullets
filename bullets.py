@@ -14,15 +14,18 @@ def find_db():
         print("database.csv exists")
     else:
         print('database.csv DOES NOT exist. Need to create, one second')
-        file = open("database.csv", "x")
-        file.close()
+        headers = ["ID","Timestamp","Bullet"]
+        with open("database.csv", "w") as file:
+            dw = csv.DictWriter(file, delimiter=',', fieldnames=headers)
+            dw.writeheader()
 
 def get_bullet():
     # PS command to create a file: New-Item -ItemType file database.csv
     tsf = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     bullet = input("What did you accomplish? ")
     print(f"You entered: {bullet.strip()} at {tsf}")
-    row = [tsf,bullet.strip()]
+    print("\r")
+    row = ["555",tsf,bullet.strip()]
     with open("database.csv", "a", newline='\n') as file:
         writer = csv.writer(file)
         writer.writerow(row)
