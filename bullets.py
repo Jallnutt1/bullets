@@ -1,7 +1,7 @@
 from datetime import datetime
 from pyfiglet import Figlet
 import csv
-import os.path
+import os
 
 f = Figlet(font='larry3d')
 print(f.renderText('Weekly'))
@@ -10,7 +10,9 @@ print(f.renderText('Bullets'))
 # https://pypi.org/project/simple-term-menu/
 
 def find_db():
-    if os.path.isfile("C:\\Users\\Jason\\Documents\\bullets\\database.csv"):
+    cwd = os.getcwd()
+    fullPath = cwd + "\\database.csv"
+    if os.path.isfile(fullPath):
         print("database.csv exists")
     else:
         print('database.csv DOES NOT exist. Need to create, one second')
