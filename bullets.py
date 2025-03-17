@@ -17,8 +17,8 @@ def find_db():
     else:
         print('database.csv DOES NOT exist. Need to create, one second')
         headers = ["ID","Timestamp","Bullet"]
-        with open("database.csv", "w") as file:
-            dw = csv.DictWriter(file, delimiter=',', fieldnames=headers)
+        with open("database.csv", "w", newline='') as file:
+            dw = csv.DictWriter(file, fieldnames=headers)
             dw.writeheader()
 
 def get_bullet():
@@ -45,7 +45,7 @@ def prn_db():
 running = True
 find_db()
 while running == True:
-    print("Select and option by entering the number of what you want to do:")
+    print("Select an option by entering the number of what you want to do:")
     op_1 = "Add a weekly accomplishment."
     print(f"1. {op_1}")
     op_2 = "Print the entire database."
@@ -70,5 +70,7 @@ while running == True:
     else:
         print("Looks like you entered a number that isn't one of the options. BYE BYE!")
         print("\r")
+
+os.system('cls' if os.name == 'nt' else 'clear')
 
 
