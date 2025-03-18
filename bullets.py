@@ -27,7 +27,9 @@ def get_bullet():
     bullet = input("What did you accomplish? ")
     print(f"You entered: {bullet.strip()} at {tsf}")
     print("\r")
-    row = ["555",tsf,bullet.strip()]
+    # Add another open in reader mode and get the len(list(reader)) to get the current number of rows
+
+    row = ["555",tsf,bullet.strip()] # Move this into the 'with open' below. 
     with open("database.csv", "a", newline='\n') as file:
         writer = csv.writer(file)
         writer.writerow(row)
