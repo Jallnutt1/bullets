@@ -23,13 +23,16 @@ def find_db():
 
 def get_bullet():
     # PS command to create a file: New-Item -ItemType file database.csv
+    with open("database.csv", newline='') as fileRead:
+        reader = csv.reader(fileRead)
+        idNum = len(list(reader))
     tsf = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     bullet = input("What did you accomplish? ")
     print(f"You entered: {bullet.strip()} at {tsf}")
     print("\r")
     # Add another open in reader mode and get the len(list(reader)) to get the current number of rows
 
-    row = ["555",tsf,bullet.strip()] # Move this into the 'with open' below. 
+    row = [idNum,tsf,bullet.strip()] # Move this into the 'with open' below. 
     with open("database.csv", "a", newline='\n') as file:
         writer = csv.writer(file)
         writer.writerow(row)
