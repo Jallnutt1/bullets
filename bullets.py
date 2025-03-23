@@ -3,13 +3,14 @@ from pyfiglet import Figlet
 import csv
 import os
 
+                                                                            # PS command to create a file: New-Item -ItemType file database.csv
 f = Figlet(font='larry3d')                                                  # This print the big titles when you first run the script. 
 print(f.renderText('Weekly'))
 print(f.renderText('Bullets'))
 
                                                                             # https://pypi.org/project/simple-term-menu/
 
-def find_db():                                                              # This function verifies if a 'database.csv' file exists the PWD. 
+def find_db():                                                              # This function verifies if a 'database.csv' file exists in the PWD. 
                                                                             # If not, the script creates such a file. 
     cwd = os.getcwd()
     fullPath = cwd + "\\database.csv"
@@ -17,15 +18,12 @@ def find_db():                                                              # Th
         print("database.csv exists")
     else:
         print('database.csv DOES NOT exist. Need to create, one second')
-        headers = ["ID","Timestamp","Bullet"]                               # The CSV has three columns, an 'ID', a 'Timestamp', and the actualy user 
-                                                                            # input.
+        headers = ["ID","Timestamp","Bullet"]                               # The CSV has three columns, an 'ID', a 'Timestamp', and the user input
         with open("database.csv", "w", newline='') as file:
-            dw = csv.DictWriter(file, fieldnames=headers)                   # Not sure why I used a 'DictWriter' versus a regular writer. Something 
-                                                                            # to look into later. 
+            dw = csv.DictWriter(file, fieldnames=headers)                   # Unsure why I used a 'DictWriter' vs a writer. Something to look into later. 
             dw.writeheader()
 
 def get_bullet():                                                           # This function asks the user to input an accomplishment from the week. 
-                                                                            # PS command to create a file: New-Item -ItemType file database.csv
     with open("database.csv", newline='') as fileRead:                      # This 'with' statement reads the csv files to get the number of rows.
         reader = csv.reader(fileRead)
         idNum = len(list(reader))                                           # The number of rows, including the header row is stored to 'idNum'. 
@@ -46,7 +44,7 @@ def get_bullet():                                                           # Th
         writer.writerow(row)
         file.close()
 
-def prn_db():                                                               # This function prints the entire database to the terminal winddow
+def prn_db():                                                               # This function prints the entire database to the terminal winddow.
     print("Here are the current contents of your database...")
     print("\r")
     with open("database.csv", 'r') as fileRead:
@@ -85,7 +83,6 @@ while running == True:                                                      # Th
         print("Looks like you entered a number that isn't one of the options. BYE BYE!")
         print("\r")
 
-os.system('cls' if os.name == 'nt' else 'clear')                            # This line clears the termianl screen after the user has selected the exit
-                                                                            # option.
+os.system('cls' if os.name == 'nt' else 'clear')                            # This clears the termianl screen after the user has selected the exit option.
 
 
